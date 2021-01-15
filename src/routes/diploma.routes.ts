@@ -1,13 +1,19 @@
 import { Router } from 'express';
+import { getRepository } from 'typeorm';
 
 import CreateDiplomaService from '../services/CreateDiplomaService';
+import PickupDiplomaService from '../services/PickupDiplomaService';
+
+import Diploma from '../models/Diploma';
 
 const diplomasRouter = Router();
 
-diplomasRouter.get('/', (request, response) => {
-  return response.json({ ok: true });
-})
+diplomasRouter.get('/', async (request, response) => {
+  const diplomasRepository = getRepository(Diploma);
+  const diplomas = await diplomasRepository.find();
 
+  return response.json(diplomas);
+});
 
 diplomasRouter.post('/', async (request, response) => {
   const {
@@ -28,6 +34,20 @@ diplomasRouter.post('/', async (request, response) => {
     date_end_program,
     book,
     page,
+  });
+
+  return response.json(diploma);
+});
+
+diplomasRouter.put('/', async (request, response) => {
+  const { id, authorized_representative, date_pickup } = request.body;
+
+  const pickupDiploma = new PickupDiplomaService();
+
+  const diploma = await pickupDiploma.execute({
+    id,
+    authorized_representative,
+    date_pickup,
   });
 
   return response.json(diploma);
