@@ -5,12 +5,28 @@ import CreateDiplomaService from '../services/CreateDiplomaService';
 import PickupDiplomaService from '../services/PickupDiplomaService';
 
 import Diploma from '../models/Diploma';
+import Student from '../models/Student';
 
 const diplomasRouter = Router();
 
 diplomasRouter.get('/', async (request, response) => {
+  const { search } = request.body;
+
+  const studentsRepository = getRepository(Student);
+  const student = await studentsRepository.findOne({
+    where: {
+      record_id: search,
+    },
+  });
+
+  if (!student) {
+    return response.status(404).send('Estudante não encontrado!');
+  }
+
   const diplomasRepository = getRepository(Diploma);
-  const diplomas = await diplomasRepository.find();
+  const diplomas = await diplomasRepository.find({
+    where: { student_id: student.id },
+  });
 
   return response.json(diplomas);
 });
