@@ -17,6 +17,19 @@ class Diploma {
   id: string;
 
   @Column()
+  student_id: string;
+
+  @ManyToOne(() => Student, student => student.diploma, { eager: true })
+  @JoinColumn({ name: 'student_id' })
+  student: Student;
+
+  @Column()
+  course: string;
+
+  @Column('date')
+  date_end_program: Date;
+
+  @Column()
   book: number;
 
   @Column()
@@ -27,13 +40,6 @@ class Diploma {
 
   @Column('date')
   date_pickup: Date;
-
-  @Column()
-  student_id: string;
-
-  @ManyToOne(() => Student, student => student.diploma, { eager: true })
-  @JoinColumn({ name: 'student_id' })
-  student: Student;
 
   @Column()
   csv_id: string;

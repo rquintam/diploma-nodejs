@@ -32,17 +32,17 @@ class CreateDiplomaService {
       studentRecord = studentsRepository.create({
         record_id,
         name,
-        course,
-        date_end_program,
       });
 
       await studentsRepository.save(studentRecord);
     }
 
     const diploma = diplomasRepository.create({
+      student: studentRecord,
+      course,
+      date_end_program,
       book,
       page,
-      student: studentRecord,
     });
 
     await diplomasRepository.save(diploma);

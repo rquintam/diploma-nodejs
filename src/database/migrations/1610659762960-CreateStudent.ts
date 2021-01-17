@@ -22,15 +22,6 @@ export default class CreateStudent1610659762960 implements MigrationInterface {
             type: 'varchar',
           },
           {
-            name: 'course',
-            type: 'varchar',
-          },
-          {
-            name: 'date_end_program',
-            type: 'date',
-            isNullable: false,
-          },
-          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',

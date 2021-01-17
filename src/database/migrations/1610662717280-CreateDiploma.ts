@@ -19,6 +19,20 @@ export default class CreateDiploma1610662717280 implements MigrationInterface {
             default: 'uuid_generate_v4()',
           },
           {
+            name: 'student_id',
+            type: 'uuid',
+            isNullable: true,
+          },
+          {
+            name: 'course',
+            type: 'varchar',
+          },
+          {
+            name: 'date_end_program',
+            type: 'date',
+            isNullable: false,
+          },
+          {
             name: 'book',
             type: 'integer',
           },
@@ -34,11 +48,6 @@ export default class CreateDiploma1610662717280 implements MigrationInterface {
           {
             name: 'date_pickup',
             type: 'date',
-            isNullable: true,
-          },
-          {
-            name: 'student_id',
-            type: 'uuid',
             isNullable: true,
           },
           {

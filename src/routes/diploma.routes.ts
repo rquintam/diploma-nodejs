@@ -10,17 +10,19 @@ import Student from '../models/Student';
 const diplomasRouter = Router();
 
 diplomasRouter.get('/', async (request, response) => {
-  const { search } = request.body;
+  const { record_id } = request.query;
 
   const studentsRepository = getRepository(Student);
   const student = await studentsRepository.findOne({
     where: {
-      record_id: search,
+      record_id,
     },
   });
 
   if (!student) {
-    return response.status(404).send('Estudante não encontrado!');
+    return response
+      .status(404)
+      .json({ error: 'Nenhum diploma encontrado para' });
   }
 
   const diplomasRepository = getRepository(Diploma);

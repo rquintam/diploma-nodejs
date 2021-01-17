@@ -20,12 +20,6 @@ class Student {
   @Column()
   name: string;
 
-  @Column()
-  course: string;
-
-  @Column('date')
-  date_end_program: Date;
-
   @OneToMany(() => Diploma, diploma => diploma.student)
   diploma: Diploma;
 
